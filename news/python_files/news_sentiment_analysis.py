@@ -54,7 +54,7 @@ df = df.withColumn('title_score', calculate_sentiment_score(df['title']))
 df = df.withColumn('content_score', calculate_sentiment_score(df['content']))
 df = df.withColumn('score', (df['title_score'] + df['content_score']) / 2)  # average score
 
-# group by time slot and average the scores
+# group by time slot and average scores
 df_by_time_slot = df.groupBy('time_slot').avg('score')
 
 print([(row['time_slot'], row['avg(score)']) for row in sorted(df_by_time_slot.collect())])
